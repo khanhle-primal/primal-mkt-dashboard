@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PRIMAL Marketing Dashboard</title>
+<!-- App PRIMAL Marketing Dashboard (Khanh 06/10/2026 chon cach 2): trang nay dat tren link https => Edge / Chrome cho "Cai dat ung dung".
+     Ben trong la dashboard Apps Script (link that, /exec?wrap=1). Dashboard bao so tin chat chua doc qua postMessage => trang nay ve
+     cham do + so tren icon tab, "(n)" tren ten cua so, va so tren bieu tuong app o thanh tac vu (Badging API, chi khi da cai app). -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#15181C">
+<link id="fav" rel="icon" type="image/png" href="icons/favicon-64.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<style>
+  html,body{ margin:0; height:100%; background:#F4F6F8; }
+  iframe{ border:0; width:100%; height:100%; display:block; }
+</style>
+</head>
+<body>
+<iframe id="app" title="PRIMAL Marketing Dashboard" allow="autoplay; clipboard-write; fullscreen"
+  src="https://script.google.com/a/macros/trainwithprimal.vn/s/AKfycbz_qVEyqbHUqKVMJTVxUrx9y8VhVDJtbtuM1wKWExpijVrhTtlMyxxEzYKTRajtmW3U/exec?wrap=1"></iframe>
+<script>
+(function(){
+  var TITLE='PRIMAL Marketing Dashboard', ALLOW=/\.googleusercontent\.com$|^https:\/\/script\.google\.com$/;
+  var link=document.getElementById('fav'), BASE=link.href, img=new Image(), last=0, ready=false;
+  img.onload=function(){ ready=true; draw(last); }; img.src=BASE;
+  function badge(n){ try{ if(n>0&&navigator.setAppBadge) navigator.setAppBadge(n).catch(function(){}); else if(navigator.clearAppBadge) navigator.clearAppBadge().catch(function(){}); }catch(e){} }
+  function draw(n){
+    document.title=(n>0?'('+(n>99?'99+':n)+') ':'')+TITLE; badge(n);
+    if(!ready) return;
+    var c=document.createElement('canvas'); c.width=c.height=64; var x=c.getContext('2d'); x.drawImage(img,0,0,64,64);
+    if(n>0){ x.beginPath(); x.arc(46,18,17,0,Math.PI*2); x.fillStyle='#FF2D2D'; x.fill(); x.lineWidth=3; x.strokeStyle='#FFFFFF'; x.stroke();
+      x.fillStyle='#FFFFFF'; x.font='bold '+(n>9?18:24)+'px Arial'; x.textAlign='center'; x.textBaseline='middle'; x.fillText(n>9?'9+':String(n),46,19); }
+    link.href=n>0?c.toDataURL('image/png'):BASE; window.__wrapUnread=n; }
+  window.addEventListener('message',function(e){ var d=e.data; if(!d||d.primalDash!=='unread'||!ALLOW.test(e.origin)) return; var n=Math.max(0,parseInt(d.n,10)||0); if(n!==last){ last=n; draw(n); } });
+  if('serviceWorker' in navigator) window.addEventListener('load',function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
+})();
+</script>
+</body>
+</html>
